@@ -668,11 +668,17 @@ object frmLinks: TfrmLinks
       object lblCat: TLabel
         Left = 10
         Top = 5
-        Width = 56
-        Height = 15
+        Width = 90
+        Height = 25
         Caption = 'Categories'
         Color = 11039113
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -19
+        Font.Name = 'Segoe UI'
+        Font.Style = []
         ParentColor = False
+        ParentFont = False
       end
     end
     object lstCats: TListBox
@@ -1867,11 +1873,17 @@ object frmLinks: TfrmLinks
       object lblBookmarks: TLabel
         Left = 10
         Top = 4
-        Width = 59
-        Height = 15
+        Width = 92
+        Height = 25
         Caption = 'Bookmarks'
         Color = 10841477
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -19
+        Font.Name = 'Segoe UI'
+        Font.Style = []
         ParentColor = False
+        ParentFont = False
       end
     end
     object LstLinks: TListBox
@@ -2070,11 +2082,17 @@ object frmLinks: TfrmLinks
         object lblBookmarkInfo: TLabel
           Left = 10
           Top = 4
-          Width = 120
-          Height = 15
+          Width = 188
+          Height = 25
           Caption = 'Bookmark Information'
           Color = 10511229
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Segoe UI'
+          Font.Style = []
           ParentColor = False
+          ParentFont = False
         end
       end
     end

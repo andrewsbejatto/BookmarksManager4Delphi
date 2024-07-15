@@ -23,6 +23,7 @@ type
     procedure cmdCloseClick(Sender: TObject);
     procedure cmdOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure LoadCats;
     function GetCatIcon(cName: string): integer;
@@ -69,6 +70,12 @@ begin
       end;
     until FindNext(sr) <> 0;
   end;
+end;
+
+procedure TfrmMoveLink.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmMoveLink := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmMoveLink.FormCreate(Sender: TObject);

@@ -27,6 +27,7 @@ type
     procedure R2Click(Sender: TObject);
     procedure R3Click(Sender: TObject);
     procedure R4Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -74,6 +75,12 @@ begin
 
   Tools.ButtonPress := 1;
   Close;
+end;
+
+procedure TfrmShareLink.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmShareLink := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmShareLink.FormCreate(Sender: TObject);

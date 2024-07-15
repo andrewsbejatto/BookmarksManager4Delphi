@@ -20,13 +20,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmLinks, frmLinks);
-  Application.CreateForm(TfrmBrowsers, frmBrowsers);
-  Application.CreateForm(TfrmAbout, frmAbout);
-  Application.CreateForm(TfrmCatAdd, frmCatAdd);
-  Application.CreateForm(TfrmAddLink, frmAddLink);
-  Application.CreateForm(TfrmHtml, frmHtml);
-  Application.CreateForm(TfrmMoveLink, frmMoveLink);
-  Application.CreateForm(TfrmTemp, frmTemp);
-  Application.CreateForm(TfrmShareLink, frmShareLink);
   Application.Run;
 end.

@@ -32,6 +32,7 @@ type
     procedure lblLinkAddressKeyPress(Sender: TObject; var Key: char);
     procedure lblLinkNameChange(Sender: TObject);
     procedure lblLinkNameKeyPress(Sender: TObject; var Key: char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     function VaildName(sName: string): boolean;
     procedure DoKeyPress(Sender: TObject; var Key: char);
@@ -138,6 +139,12 @@ begin
     Tools.LinkIcon := cboIcons.ItemIndex;
     Close;
   end;
+end;
+
+procedure TfrmAddLink.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmAddLink := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmAddLink.FormCreate(Sender: TObject);

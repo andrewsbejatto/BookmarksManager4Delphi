@@ -13,6 +13,7 @@ object frmMoveLink: TfrmMoveLink
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object lblMoveTo: TLabel

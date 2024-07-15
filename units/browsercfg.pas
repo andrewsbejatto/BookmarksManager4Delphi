@@ -37,6 +37,7 @@ type
     procedure txtFileEd3InvokeSearch(Sender: TObject);
     procedure txtFileEd4InvokeSearch(Sender: TObject);
     procedure txtFileEd5InvokeSearch(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -118,6 +119,12 @@ procedure TfrmBrowsers.txtFileEd5InvokeSearch(Sender: TObject);
 begin
   if OpenDialog1.Execute then
     txtFileEd5.Text := OpenDialog1.FileName;
+end;
+
+procedure TfrmBrowsers.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmBrowsers := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmBrowsers.FormCreate(Sender: TObject);

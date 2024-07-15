@@ -9,6 +9,7 @@ uses
   about, browsercfg, addcat, htmlprop, Tools, addlink, linkmove;
 
 type
+  TProcedureOpenUrl = procedure(AUrl: String) of object;
 
   { TfrmLinks }
   TfrmLinks = class(TForm)
@@ -139,6 +140,7 @@ type
     procedure txtSearchCatsChange(Sender: TObject);
     procedure txtSearchLinksChange(Sender: TObject);
   private
+    FProcedureOpenUrl: TProcedureOpenUrl;
     procedure LoadCats;
     procedure AddCatIcon(cName: string; nIcon: integer);
     procedure EditCatName(cOldName, cNewName: string; nIcon: integer);
@@ -175,7 +177,7 @@ type
     procedure CountCatsAndBookmarks;
     procedure ClearBookmarInfo;
   public
-
+    property ProcedureOpenUrl: TProcedureOpenUrl read FProcedureOpenUrl write FProcedureOpenUrl;
   end;
 
 var
@@ -417,13 +419,10 @@ begin
 end;
 
 procedure TfrmLinks.BrowserConfig_Click(Sender: TObject);
-var
-  frm: TfrmBrowsers;
 begin
-  frm := TfrmBrowsers.Create(self);
-  frm.ShowModal;
-  //Cear up
-  FreeAndNil(frm);
+  if not Assigned(frmBrowsers) then
+    Application.CreateForm(TfrmBrowsers, frmBrowsers);
+  frmBrowsers.ShowModal;
 end;
 
 procedure TfrmLinks.LoadBrowsers;
@@ -526,7 +525,6 @@ procedure TfrmLinks.MoveToListIndex(sItem: string; lBox: TListBox);
 var
   X: integer;
 begin
-
   if sItem <> '' then
   begin
     for X := 0 to lBox.Count - 1 do
@@ -585,7 +583,6 @@ begin
 
   FreeAndNil(sd);
   Result := lzFile;
-
 end;
 
 procedure TfrmLinks.RestoreLinks;
@@ -609,9 +606,7 @@ begin
         lstCats.ItemIndex := 0;
         LoadLinks;
       end;
-
-    end
-    else
+    end else
     begin
       ErrorMsgCat('The restore process has failed.');
     end;
@@ -977,7 +972,6 @@ begin
 end;
 
 procedure TfrmLinks.FormCreate(Sender: TObject);
-
 begin
   InitListIcons;
   KeyPressCancel := False;
@@ -1026,15 +1020,14 @@ begin
 end;
 
 procedure TfrmLinks.cmdCatAddClick(Sender: TObject);
-var
-  frm: TfrmCatAdd;
 begin
 
   Tools.ButtonPress := 0;
-  frm := TfrmCatAdd.Create(self);
-  frm.Caption := 'New';
-  frm.cmdOK.Caption := 'Add';
-  frm.ShowModal;
+  if not Assigned(frmCatAdd) then
+    Application.CreateForm(TfrmCatAdd, frmCatAdd);
+  frmCatAdd.Caption := 'New';
+  frmCatAdd.cmdOK.Caption := 'Add';
+  frmCatAdd.ShowModal;
 
   if Tools.ButtonPress = 1 then
   begin
@@ -1150,7 +1143,6 @@ end;
 procedure TfrmLinks.cmdCatEditClick(Sender: TObject);
 var
   S, S1: string;
-  frm: TfrmCatAdd;
 begin
   if lstCats.ItemIndex <> -1 then
   begin
@@ -1158,12 +1150,13 @@ begin
     S1 := S;
 
     Tools.ButtonPress := 0;
-    frm := TfrmCatAdd.Create(self);
-    frm.lblCatName.Text := S1;
-    frm.cboIcons.ItemIndex := GetCatIcon(S1);
-    frm.Caption := 'Edit';
-    frm.cmdOK.Caption := 'Update';
-    frm.ShowModal;
+    if not Assigned(frmCatAdd) then
+      Application.CreateForm(TfrmCatAdd, frmCatAdd);
+    frmCatAdd.lblCatName.Text := S1;
+    frmCatAdd.cboIcons.ItemIndex := GetCatIcon(S1);
+    frmCatAdd.Caption := 'Edit';
+    frmCatAdd.cmdOK.Caption := 'Update';
+    frmCatAdd.ShowModal;
 
     if Tools.ButtonPress = 1 then
     begin
@@ -1185,7 +1178,6 @@ begin
       end;
       EditCatName(S1, S, Tools.CatIcon);
     end;
-    FreeAndNil(frm);
   end;
 end;
 
@@ -1223,17 +1215,15 @@ begin
 end;
 
 procedure TfrmLinks.cmdLinkAddClick(Sender: TObject);
-var
-  frm: TfrmAddLink;
 begin
-
   if lstCats.ItemIndex <> -1 then
   begin
     Tools.ButtonPress := 0;
-    frm := TfrmAddLink.Create(self);
-    frm.cmdOK.Caption := 'Add';
-    frm.Caption := 'New';
-    frm.ShowModal;
+    if not Assigned(frmAddLink) then
+      Application.CreateForm(TfrmAddLink, frmAddLink);
+    frmAddLink.cmdOK.Caption := 'Add';
+    frmAddLink.Caption := 'New';
+    frmAddLink.ShowModal;
     if ButtonPress = 1 then
     begin
       AddLinkInfo(Tools.LinkName, Tools.LinkUrl, Tools.LinkDesc, Tools.LinkIcon);
@@ -1243,34 +1233,32 @@ begin
       LstLinksClick(Sender);
       KeyPressCancel := True;
     end;
-    FreeAndNil(frm);
   end;
   CountCatsAndBookmarks;
 end;
 
 procedure TfrmLinks.cmdLinkEditClick(Sender: TObject);
 var
-  frm: TfrmAddLink;
   oName: string;
   oViews: integer;
   oIdx: integer;
 begin
-
   oIdx := LstLinks.ItemIndex;
 
   if (lstCats.ItemIndex <> -1) and (oIdx <> -1) then
   begin
     Tools.ButtonPress := 0;
-    frm := TfrmAddLink.Create(self);
-    frm.cmdOK.Caption := 'Update';
-    frm.Caption := 'Edit';
+    if not Assigned(frmAddLink) then
+      Application.CreateForm(TfrmAddLink, frmAddLink);
+    frmAddLink.cmdOK.Caption := 'Update';
+    frmAddLink.Caption := 'Edit';
     oName := GetLinkName(oIdx);
     oViews := GetLinkViews(oIdx);
-    frm.lblLinkName.Text := oName;
-    frm.lblLinkAddress.Text := GetLinkUrl(oIdx);
-    frm.lblDescription.Text := GetLinkDescription(oIdx);
-    frm.cboIcons.ItemIndex := GetLinkIcon(oIdx);
-    frm.ShowModal;
+    frmAddLink.lblLinkName.Text := oName;
+    frmAddLink.lblLinkAddress.Text := GetLinkUrl(oIdx);
+    frmAddLink.lblDescription.Text := GetLinkDescription(oIdx);
+    frmAddLink.cboIcons.ItemIndex := GetLinkIcon(oIdx);
+    frmAddLink.ShowModal;
     if ButtonPress = 1 then
     begin
       //Update catLinks.
@@ -1282,7 +1270,6 @@ begin
       LstLinksClick(Sender);
       KeyPressCancel := True;
     end;
-    FreeAndNil(frm);
   end;
 end;
 
@@ -1312,7 +1299,6 @@ end;
 
 procedure TfrmLinks.cmdMoveLinkClick(Sender: TObject);
 var
-  frm: TfrmMoveLink;
   oId: integer;
   oName: string;
   lzCatFile: string;
@@ -1325,8 +1311,9 @@ begin
     Tools.LinksMoveFromCat := lstCats.Items[lstCats.ItemIndex];
     //Get link name
     oName := GetLinkName(oId);
-    frm := TfrmMoveLink.Create(self);
-    frm.ShowModal;
+    if not Assigned(frmMoveLink) then
+      Application.CreateForm(TfrmMoveLink, frmMoveLink);
+    frmMoveLink.ShowModal;
     if Tools.ButtonPress = 1 then
     begin
       //New file to move to
@@ -1339,7 +1326,6 @@ begin
       LstLinks.Items.Delete(oId);
       ClearBookmarInfo;
     end;
-    FreeAndNil(frm);
   end;
 end;
 
@@ -1357,21 +1343,21 @@ end;
 procedure TfrmLinks.cmdShareTwitterClick(Sender: TObject);
 var
   ID: integer;
-  frm: TfrmShareLink;
 begin
   ID := LstLinks.ItemIndex;
   Tools.ButtonPress := 0;
   //Email a link to someone
   if (lstCats.ItemIndex <> -1) and (ID <> -1) then
   begin
-    frm := TfrmShareLink.Create(self);
+    if not Assigned(frmMoveLink) then
+      Application.CreateForm(TfrmShareLink, frmShareLink);
+    frmShareLink := TfrmShareLink.Create(self);
     Tools.LinkShareUrl := GetLinkUrl(ID);
-    frm.ShowModal;
+    frmShareLink.ShowModal;
     if ButtonPress = 1 then
     begin
       OpenURL(Tools.LinkShareSrc);
     end;
-    FreeAndNil(frm);
   end;
 end;
 
@@ -1381,7 +1367,6 @@ var
   ID: integer;
   lzFile, cName, cUrl: string;
 begin
-
   ID := LstLinks.ItemIndex;
 
   if (lstCats.ItemIndex <> -1) and (ID <> -1) then
@@ -1410,7 +1395,6 @@ var
   oViews: integer;
   oIdx: integer;
 begin
-
   oIdx := LstLinks.ItemIndex;
 
   if (lstCats.ItemIndex <> -1) and (oIdx <> -1) then
@@ -1438,12 +1422,10 @@ begin
 end;
 
 procedure TfrmLinks.cmdAboutClick(Sender: TObject);
-var
-  frm: TfrmAbout;
 begin
-  frm := TfrmAbout.Create(self);
-  frm.ShowModal;
-  FreeAndNil(frm);
+  if not Assigned(frmAbout) then
+    Application.CreateForm(TfrmAbout, frmAbout);
+  frmAbout.ShowModal;
 end;
 
 procedure TfrmLinks.lstCatsClick(Sender: TObject);
@@ -1451,7 +1433,6 @@ var
   cName: string;
   oIdx: integer;
 begin
-
   oIdx := lstCats.ItemIndex;
 
   if (oIdx <> -1) then
@@ -1538,10 +1519,13 @@ begin
     bDefault := ini.ReadInteger('Browsers', 'default', 0);
     FreeAndNil(ini);
 
-    if bDefault = 0 then
-      OpenURL(GetLinkUrl(oIdx))
+    if Assigned(FProcedureOpenUrl) then
+      ProcedureOpenUrl(GetLinkUrl(oIdx))
     else
-      OpenInBrowser(bDefault);
+      if bDefault = 0 then
+        OpenURL(GetLinkUrl(oIdx))
+      else
+        OpenInBrowser(bDefault);
   end;
 end;
 
@@ -1565,7 +1549,6 @@ begin
   LstLinks.Canvas.TextOut(ARect.left + frmIcons.ilstBookmarks.Width +
     8, ARect.Top + YPos,
     LstLinks.Items.Strings[index]);
-
 end;
 
 procedure TfrmLinks.LstLinksKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -1605,7 +1588,6 @@ var
   lzCopyFrom, lzCatName, lzFile: string;
   sData: TStringList;
 begin
-
   if lstCats.ItemIndex <> -1 then
   begin
     lzCatName := lstCats.Items[lstCats.ItemIndex];
@@ -1632,7 +1614,6 @@ var
   oId: integer;
   tf: TextFile;
 begin
-
   oId := LstLinks.ItemIndex;
   sData := TStringList.Create;
 
@@ -1701,7 +1682,7 @@ end;
 
 procedure TfrmLinks.cmdExitClick(Sender: TObject);
 begin
-  Application.Terminate;
+  Close;
 end;
 
 procedure TfrmLinks.mnuExportFavClick(Sender: TObject);

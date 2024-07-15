@@ -21,6 +21,7 @@ type
     procedure lblWebsiteClick(Sender: TObject);
     procedure lblWebsiteMouseEnter(Sender: TObject);
     procedure lblWebsiteMouseLeave(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -42,6 +43,12 @@ uses
 procedure TfrmAbout.cmdOKClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmAbout.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmAbout := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmAbout.lblWebsiteClick(Sender: TObject);

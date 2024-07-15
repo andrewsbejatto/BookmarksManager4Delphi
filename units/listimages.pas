@@ -14,6 +14,7 @@ type
     LstFolders: TImageList;
     lstBookmarks: TImageList;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -29,6 +30,12 @@ implementation
 {$R *.dfm}
 
 { TfrmTemp }
+
+procedure TfrmTemp.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmTemp := nil;
+  Action := TCloseAction.caFree;
+end;
 
 procedure TfrmTemp.FormCreate(Sender: TObject);
 begin

@@ -28,6 +28,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure lblCatNameChange(Sender: TObject);
     procedure lblCatNameKeyPress(Sender: TObject; var Key: char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -42,6 +43,12 @@ implementation
 {$R *.dfm}
 
 { TfrmCatAdd }
+
+procedure TfrmCatAdd.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmCatAdd := nil;
+  Action := TCloseAction.caFree;
+end;
 
 procedure TfrmCatAdd.FormCreate(Sender: TObject);
 var

@@ -13,6 +13,7 @@ object frmAbout: TfrmAbout
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnClose = FormClose
   TextHeight = 15
   object lblTitle: TLabel
     Left = 120

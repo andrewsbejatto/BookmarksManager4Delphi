@@ -5,7 +5,7 @@ object frmAddLink: TfrmAddLink
   BorderStyle = bsDialog
   Caption = 'New'
   ClientHeight = 410
-  ClientWidth = 553
+  ClientWidth = 529
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,17 +13,18 @@ object frmAddLink: TfrmAddLink
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object ImgLogo: TImage
-    Left = 41
+    Left = 25
     Top = 16
     Width = 32
     Height = 32
     AutoSize = True
   end
   object lblLinkTitle: TLabel
-    Left = 88
+    Left = 72
     Top = 23
     Width = 326
     Height = 25
@@ -40,7 +41,7 @@ object frmAddLink: TfrmAddLink
     ParentFont = False
   end
   object lblLinkName: TLabeledEdit
-    Left = 32
+    Left = 16
     Top = 93
     Width = 499
     Height = 23
@@ -55,7 +56,7 @@ object frmAddLink: TfrmAddLink
     OnKeyPress = lblLinkNameKeyPress
   end
   object lblLinkAddress: TLabeledEdit
-    Left = 32
+    Left = 16
     Top = 173
     Width = 499
     Height = 23
@@ -69,7 +70,7 @@ object frmAddLink: TfrmAddLink
     OnKeyPress = lblLinkAddressKeyPress
   end
   object cmdOK: TButton
-    Left = 40
+    Left = 24
     Top = 352
     Width = 112
     Height = 38
@@ -79,7 +80,7 @@ object frmAddLink: TfrmAddLink
     OnClick = cmdOKClick
   end
   object cmdClose: TButton
-    Left = 160
+    Left = 144
     Top = 352
     Width = 112
     Height = 38
@@ -88,7 +89,7 @@ object frmAddLink: TfrmAddLink
     OnClick = cmdCloseClick
   end
   object lblDescription: TLabeledEdit
-    Left = 32
+    Left = 16
     Top = 248
     Width = 499
     Height = 23
@@ -102,7 +103,7 @@ object frmAddLink: TfrmAddLink
     OnKeyPress = lblDescriptionKeyPress
   end
   object StaticText1: TStaticText
-    Left = 32
+    Left = 16
     Top = 296
     Width = 84
     Height = 19
@@ -110,7 +111,7 @@ object frmAddLink: TfrmAddLink
     TabOrder = 6
   end
   object cboIcons: TComboBox
-    Left = 169
+    Left = 153
     Top = 293
     Width = 112
     Height = 31

@@ -4,8 +4,8 @@ object frmBrowsers: TfrmBrowsers
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Config Browsers'
-  ClientHeight = 584
-  ClientWidth = 643
+  ClientHeight = 455
+  ClientWidth = 614
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,11 +13,12 @@ object frmBrowsers: TfrmBrowsers
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poOwnerFormCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object lblTitle: TLabel
-    Left = 34
-    Top = 25
+    Left = 10
+    Top = 9
     Width = 88
     Height = 15
     Caption = 'Internet Explorer'
@@ -33,8 +34,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object lblTitle1: TLabel
-    Left = 36
-    Top = 108
+    Left = 12
+    Top = 76
     Width = 80
     Height = 15
     Caption = 'Microsoft Edge'
@@ -50,8 +51,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object lblTitle2: TLabel
-    Left = 36
-    Top = 196
+    Left = 12
+    Top = 140
     Width = 78
     Height = 15
     Caption = 'Mozilla Firefox'
@@ -67,8 +68,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object lblTitle3: TLabel
-    Left = 36
-    Top = 284
+    Left = 12
+    Top = 204
     Width = 83
     Height = 15
     Caption = 'Google Chrome'
@@ -84,8 +85,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object lblTitle4: TLabel
-    Left = 36
-    Top = 364
+    Left = 12
+    Top = 268
     Width = 105
     Height = 15
     Caption = 'Opera Web Browser'
@@ -101,8 +102,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object Label1: TLabel
-    Left = 34
-    Top = 440
+    Left = 10
+    Top = 328
     Width = 144
     Height = 15
     Caption = 'Select your default browser'
@@ -118,8 +119,8 @@ object frmBrowsers: TfrmBrowsers
     ParentFont = False
   end
   object txtFileEd1: TSearchBox
-    Left = 32
-    Top = 55
+    Left = 8
+    Top = 31
     Width = 592
     Height = 23
     ParentShowHint = False
@@ -128,8 +129,8 @@ object frmBrowsers: TfrmBrowsers
     OnInvokeSearch = txtFileEd1InvokeSearch
   end
   object txtFileEd2: TSearchBox
-    Left = 34
-    Top = 138
+    Left = 10
+    Top = 98
     Width = 592
     Height = 23
     ParentShowHint = False
@@ -138,8 +139,8 @@ object frmBrowsers: TfrmBrowsers
     OnInvokeSearch = txtFileEd2InvokeSearch
   end
   object txtFileEd3: TSearchBox
-    Left = 34
-    Top = 226
+    Left = 10
+    Top = 162
     Width = 592
     Height = 23
     ParentShowHint = False
@@ -148,8 +149,8 @@ object frmBrowsers: TfrmBrowsers
     OnInvokeSearch = txtFileEd3InvokeSearch
   end
   object txtFileEd4: TSearchBox
-    Left = 34
-    Top = 314
+    Left = 10
+    Top = 226
     Width = 592
     Height = 23
     ParentShowHint = False
@@ -158,8 +159,8 @@ object frmBrowsers: TfrmBrowsers
     OnInvokeSearch = txtFileEd4InvokeSearch
   end
   object txtFileEd5: TSearchBox
-    Left = 34
-    Top = 394
+    Left = 10
+    Top = 290
     Width = 592
     Height = 23
     ParentShowHint = False
@@ -168,8 +169,8 @@ object frmBrowsers: TfrmBrowsers
     OnInvokeSearch = txtFileEd5InvokeSearch
   end
   object cmdOK: TButton
-    Left = 32
-    Top = 520
+    Left = 8
+    Top = 408
     Width = 113
     Height = 38
     Caption = 'OK'
@@ -177,8 +178,8 @@ object frmBrowsers: TfrmBrowsers
     OnClick = cmdOKClick
   end
   object cmdClose: TButton
-    Left = 158
-    Top = 520
+    Left = 134
+    Top = 408
     Width = 113
     Height = 38
     Caption = 'Close'
@@ -186,9 +187,9 @@ object frmBrowsers: TfrmBrowsers
     OnClick = cmdCloseClick
   end
   object cboDefault: TComboBox
-    Left = 32
-    Top = 472
-    Width = 550
+    Left = 8
+    Top = 352
+    Width = 193
     Height = 23
     Style = csDropDownList
     ItemIndex = 0
@@ -203,7 +204,7 @@ object frmBrowsers: TfrmBrowsers
       'Opera Web Browser')
   end
   object OpenDialog1: TOpenDialog
-    Left = 480
-    Top = 8
+    Left = 456
+    Top = 65528
   end
 end

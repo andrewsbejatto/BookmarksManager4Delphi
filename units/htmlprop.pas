@@ -42,6 +42,7 @@ type
     procedure lblHyperlinkMouseEnter(Sender: TObject);
     procedure lblHyperlinkMouseLeave(Sender: TObject);
     procedure txtHeaderTextChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure CenterHeader;
   public
@@ -98,6 +99,12 @@ end;
 procedure TfrmHtml.cmdBookmarkDescColorColorChanged(Sender: TObject);
 begin
   lblPageBookmarkDesc.Font.Color := cmdBookmarkDescColor.SymbolColor;
+end;
+
+procedure TfrmHtml.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmHtml := nil;
+  Action := TCloseAction.caFree;
 end;
 
 procedure TfrmHtml.FormCreate(Sender: TObject);

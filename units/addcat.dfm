@@ -13,6 +13,7 @@ object frmCatAdd: TfrmCatAdd
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object lblTitle: TLabel
