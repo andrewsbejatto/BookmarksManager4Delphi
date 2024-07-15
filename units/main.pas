@@ -17,8 +17,6 @@ type
     lblCat: TLabel;
     lblBookmarks: TLabel;
     lblBookmarkInfo: TLabel;
-    lblVoteNum: TLabel;
-    lblVotes: TLabel;
     mnuMakeCopy: TMenuItem;
     mnuClearBookmarks: TMenuItem;
     mnuTrayExit: TMenuItem;
@@ -37,15 +35,8 @@ type
     cmdShortcut: TSpeedButton;
     lblUrlTitle: TLabel;
     lblUrl: TLabel;
-    lblUrlTitle1: TLabel;
-    lblViews: TLabel;
     pBookmarkInfoCanvas: TPanel;
     mnuTray: TPopupMenu;
-    shpVote: TShape;
-    shpVote1: TShape;
-    shpVote2: TShape;
-    shpVote3: TShape;
-    shpVote4: TShape;
     Tray1: TTrayIcon;
     txtDesc: TMemo;
     mnuShortcut: TMenuItem;
@@ -144,8 +135,6 @@ type
     procedure mnuShortcutClick(Sender: TObject);
     procedure mnuTrayAboutClick(Sender: TObject);
     procedure mnuTrayExitClick(Sender: TObject);
-    procedure shpVoteMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
     procedure Tray1Click(Sender: TObject);
     procedure txtSearchCatsChange(Sender: TObject);
     procedure txtSearchLinksChange(Sender: TObject);
@@ -187,8 +176,6 @@ type
     procedure ExportToIEFav;
     procedure CountCatsAndBookmarks;
     procedure ClearBookmarInfo;
-    procedure SetVotes(ID: integer);
-    procedure ShowHideVotes(iShow: boolean);
   public
 
   end;
@@ -217,72 +204,15 @@ implementation
 
 {$R *.dfm}
 
+uses
+  System.IOUtils;
+
 { TfrmLinks }
-
-procedure TfrmLinks.ShowHideVotes(iShow: boolean);
-begin
-  shpVote.Visible := iShow;
-  shpVote1.Visible := iShow;
-  shpVote2.Visible := iShow;
-  shpVote3.Visible := iShow;
-  shpVote4.Visible := iShow;
-  lblVoteNum.Visible := iShow;
-end;
-
-procedure TfrmLinks.SetVotes(ID: integer);
-begin
-  //Reset all shap brush colors
-  shpVote.Brush.Color := clWhite;
-  shpVote1.Brush.Color := clWhite;
-  shpVote2.Brush.Color := clWhite;
-  shpVote3.Brush.Color := clWhite;
-  shpVote4.Brush.Color := clWhite;
-  lblVoteNum.Caption := '0/5';
-  if ID = 0 then exit;
-
-  lblVoteNum.Caption := IntToStr(ID) + '/5';
-
-  case ID of
-    1:
-    begin
-      shpVote.Brush.Color := clYellow;
-    end;
-    2:
-    begin
-      shpVote.Brush.Color := clYellow;
-      shpVote1.Brush.Color := clYellow;
-    end;
-    3:
-    begin
-      shpVote.Brush.Color := clYellow;
-      shpVote1.Brush.Color := clYellow;
-      shpVote2.Brush.Color := clYellow;
-    end;
-    4:
-    begin
-      shpVote.Brush.Color := clYellow;
-      shpVote1.Brush.Color := clYellow;
-      shpVote2.Brush.Color := clYellow;
-      shpVote3.Brush.Color := clYellow;
-    end;
-    5:
-    begin
-      shpVote.Brush.Color := clYellow;
-      shpVote1.Brush.Color := clYellow;
-      shpVote2.Brush.Color := clYellow;
-      shpVote3.Brush.Color := clYellow;
-      shpVote4.Brush.Color := clYellow;
-    end;
-  end;
-
-end;
 
 procedure TfrmLinks.ClearBookmarInfo;
 begin
   lblurl.Caption := '';
-  lblViews.Caption := '';
   txtDesc.Clear;
-  SetVotes(0);
 end;
 
 procedure TfrmLinks.CountCatsAndBookmarks;
@@ -469,7 +399,7 @@ begin
       if lzFile <> '' then
       begin
         //Write page title
-        sData := StringReplace(sData, '%title%', RemoveExt(ExtractFileName(lzFile)),
+        sData := StringReplace(sData, '%title%', TPath.GetFileNameWithoutExtension(ExtractFileName(lzFile)),
           [rfIgnoreCase, rfReplaceAll]);
         //Write to file
         AssignFile(tf, lzFile);
@@ -1046,7 +976,7 @@ begin
   begin
     lstCats.Clear;
     repeat
-      lstCats.Items.Add(RemoveExt(sr.Name));
+      lstCats.Items.Add(TPath.GetFileNameWithoutExtension(sr.Name));
     until FindNext(sr) <> 0;
   end;
   if lstcats.Count > 0 then
@@ -1120,7 +1050,6 @@ begin
   LoadBrowsers;
   LoadCats;
   CountCatsAndBookmarks;
-  ShowHideVotes(False);
 end;
 
 procedure TfrmLinks.FormWindowStateChange(Sender: TObject);
@@ -1213,7 +1142,6 @@ begin
       //Clear the links
       LstLinks.Clear;
       ClearBookmarInfo;
-      ShowHideVotes(False);
     end;
   end;
   CountCatsAndBookmarks;
@@ -1329,7 +1257,6 @@ begin
         DeleteLink(oName);
       end;
       ClearBookmarInfo;
-      ShowHideVotes(False);
       CountCatsAndBookmarks;
       LoadLinks;
     end;
@@ -1428,7 +1355,6 @@ begin
       //Delete the link
       DeleteLink(oName);
       ClearBookmarInfo;
-      ShowHideVotes(False);
       LoadLinks;
     end;
   end;
@@ -1476,7 +1402,6 @@ end;
 procedure TfrmLinks.cmdRestoreClick(Sender: TObject);
 begin
   RestoreLinks;
-  ShowHideVotes(False);
   CountCatsAndBookmarks;
 end;
 
@@ -1588,7 +1513,6 @@ begin
     LoadLinks;
     ClearBookmarInfo;
     CountCatsAndBookmarks;
-    ShowHideVotes(False);
   end;
 end;
 
@@ -1648,9 +1572,6 @@ begin
   begin
     lblUrl.Caption := GetLinkUrl(oIdx);
     txtDesc.Text := GetLinkDescription(oIdx);
-    lblViews.Caption := IntToStr(GetLinkViews(oIdx));
-    SetVotes(GetLinkVotes(oIdx));
-    ShowHideVotes(True);
   end;
 end;
 
@@ -1908,30 +1829,6 @@ end;
 procedure TfrmLinks.mnuTrayExitClick(Sender: TObject);
 begin
   cmdExitClick(Sender);
-end;
-
-procedure TfrmLinks.shpVoteMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: integer);
-var
-  shp: TShape;
-  oIdx: integer;
-  ini: TIniFile;
-  cName: string;
-begin
-  oIdx := LstLinks.ItemIndex;
-
-  if (lstCats.ItemIndex <> -1) and (oIdx <> -1) then
-  begin
-    shp := TShape(Sender);
-    SetVotes(shp.Tag);
-    //Write to the bookmark
-    cName := GetLinkName(oIdx);
-    if FileExists(SelectedCatName) then
-    begin
-      ini := TIniFile.Create(SelectedCatName);
-      ini.WriteInteger(cName, 'VOTES', shp.Tag);
-    end;
-  end;
 end;
 
 procedure TfrmLinks.Tray1Click(Sender: TObject);

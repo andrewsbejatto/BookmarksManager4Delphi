@@ -37,8 +37,10 @@ implementation
 
 {$R *.dfm}
 
-{ TfrmMoveLink }
+uses
+  System.IOUtils;
 
+{ TfrmMoveLink }
 
 function TfrmMoveLink.GetCatIcon(cName: string): integer;
 var
@@ -60,7 +62,7 @@ begin
   begin
     cboMoveTo.Clear;
     repeat
-      S0 := RemoveExt(sr.Name);
+      S0 := TPath.GetFileNameWithoutExtension(sr.Name);
       if lowercase(LinksMoveFromCat) <> (LowerCase(S0)) then
       begin
         cboMoveTo.Items.Add(S0);

@@ -1,7 +1,7 @@
 object frmLinks: TfrmLinks
   Left = 617
   Top = 227
-  Caption = 'My Links XE2'
+  Caption = 'BookmarksManager4Delphi'
   ClientHeight = 660
   ClientWidth = 755
   Color = clBtnFace
@@ -10,6 +10,7 @@ object frmLinks: TfrmLinks
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poScreenCenter
   OnCreate = FormCreate
   TextHeight = 15
   object Splitter1: TSplitter
@@ -1919,7 +1920,7 @@ object frmLinks: TfrmLinks
         235)
       object lblUrlTitle: TLabel
         Left = 8
-        Top = 43
+        Top = 49
         Width = 24
         Height = 15
         Caption = 'URL:'
@@ -1946,108 +1947,6 @@ object frmLinks: TfrmLinks
         OnClick = lblUrlClick
         OnMouseEnter = lblUrlMouseEnter
         OnMouseLeave = lblUrlMouseLeave
-      end
-      object lblUrlTitle1: TLabel
-        Left = 8
-        Top = 82
-        Width = 30
-        Height = 15
-        Caption = 'Views'
-        Color = 16250871
-        ParentColor = False
-      end
-      object lblViews: TLabel
-        Left = 64
-        Top = 82
-        Width = 7
-        Height = 15
-        Caption = '0'
-        Color = 16250871
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clPurple
-        Font.Height = -12
-        Font.Name = 'Segoe UI Semibold'
-        Font.Pitch = fpVariable
-        Font.Style = [fsBold]
-        Font.Quality = fqDraft
-        ParentColor = False
-        ParentFont = False
-      end
-      object shpVote: TShape
-        Tag = 1
-        Left = 208
-        Top = 80
-        Width = 28
-        Height = 25
-        Cursor = crHandPoint
-        Pen.Color = 11039113
-        OnMouseDown = shpVoteMouseDown
-      end
-      object lblVotes: TLabel
-        Left = 152
-        Top = 82
-        Width = 28
-        Height = 15
-        Caption = 'Votes'
-        Color = 16250871
-        ParentColor = False
-      end
-      object shpVote1: TShape
-        Tag = 2
-        Left = 248
-        Top = 80
-        Width = 28
-        Height = 25
-        Cursor = crHandPoint
-        Pen.Color = 11039113
-        OnMouseDown = shpVoteMouseDown
-      end
-      object shpVote2: TShape
-        Tag = 3
-        Left = 288
-        Top = 80
-        Width = 28
-        Height = 25
-        Cursor = crHandPoint
-        Pen.Color = 11039113
-        OnMouseDown = shpVoteMouseDown
-      end
-      object shpVote3: TShape
-        Tag = 4
-        Left = 328
-        Top = 80
-        Width = 28
-        Height = 25
-        Cursor = crHandPoint
-        Pen.Color = 11039113
-        OnMouseDown = shpVoteMouseDown
-      end
-      object shpVote4: TShape
-        Tag = 5
-        Left = 368
-        Top = 80
-        Width = 28
-        Height = 25
-        Cursor = crHandPoint
-        Pen.Color = 11039113
-        OnMouseDown = shpVoteMouseDown
-      end
-      object lblVoteNum: TLabel
-        Left = 408
-        Top = 83
-        Width = 25
-        Height = 21
-        Caption = '0/5'
-        Color = 16250871
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Segoe UI Semibold'
-        Font.Pitch = fpVariable
-        Font.Style = [fsBold]
-        Font.Quality = fqDraft
-        ParentColor = False
-        ParentFont = False
       end
       object txtDesc: TMemo
         Left = 8
