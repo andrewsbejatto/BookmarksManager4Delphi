@@ -154,7 +154,6 @@ type
     procedure DeleteLink(sName: string);
     function GetLinkName(Index: integer): string;
     function GetLinkUrl(Index: integer): string;
-    procedure UpdateLinkViews(Index: integer);
     function GetLinkDescription(Index: integer): string;
     function GetLinkViews(Index: integer): integer;
     function GetLinkVotes(Index: integer): integer;
@@ -167,7 +166,6 @@ type
     function GetDlgOpenName(Title, dFilter: string): string;
     procedure MoveToListIndex(sItem: string; lBox: TListBox);
     procedure SearchListBox(sFind: string; lBox: TListBox);
-    function GetProfileName: string;
     procedure LoadBrowsers;
     procedure BrowserConfig_Click(Sender: TObject);
     procedure Browser_Click(Sender: TObject);
@@ -205,7 +203,8 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils;
+  System.IOUtils,
+  ShellAPI;
 
 { TfrmLinks }
 
@@ -470,14 +469,11 @@ begin
 end;
 
 procedure TfrmLinks.OpenInBrowser(Index: integer);
-{var
+var
   exec, sSelection: string;
   ini: TIniFile;
-  p: TProcess;
-  id: integer;}
+  id: integer;
 begin
-
-{  p := TProcess.Create(self);
   //Get ini selection
   sSelection := 'Browser' + IntToStr(Index);
 
@@ -491,44 +487,18 @@ begin
       mtWarning, [mbOK], 0);
     Exit;
   end;
-
-  //Create process
   Id := LstLinks.ItemIndex;
+  var LParam: String;
+  case (Index+1) of
+    Integer(TBrowserCfg.IE): LParam := '';
+    Integer(TBrowserCfg.Edge): LParam := '';
+    Integer(TBrowserCfg.Firefox): LParam := '';
+    Integer(TBrowserCfg.Chrome): LParam := '--new-window ';
+    Integer(TBrowserCfg.Opera): LParam := '--ran-launcher --remote ';
+  end;
+
   if (lstCats.ItemIndex <> -1) and (Id <> -1) then
-  begin
-    p.Executable := exec;
-    p.Parameters.Add(GetLinkUrl(ID));
-    p.Execute;
-    //Update views
-    UpdateLinkViews(Id);
-    lblViews.Caption := IntToStr(GetLinkViews(Id));
-  end;
-  FreeAndNil(p);}
-end;
-
-function TfrmLinks.GetProfileName: string;
-var
-  S1, S2, S3: string;
-begin
-
-  S1 := GetEnvironmentVariable('USER');
-  S2 := GetEnvironmentVariable('USERNAME');
-  if S1 <> '' then
-  begin
-    S3 := S1;
-  end;
-
-  if S2 <> '' then
-  begin
-    S3 := S2;
-  end;
-
-  if (S1 = '') and (S2 = '') then
-  begin
-    S3 := 'Bookmarks';
-  end;
-
-  Result := S3;
+    ShellExecute(Application.Handle, 'Open', PChar(exec), PChar(LParam + GetLinkUrl(ID)), Nil, SW_SHOWNORMAL);
 end;
 
 procedure TfrmLinks.SearchListBox(sFind: string; lBox: TListBox);
@@ -800,27 +770,6 @@ begin
   FreeAndNil(sBookMarks);
 end;
 
-procedure TfrmLinks.UpdateLinkViews(Index: integer);
-var
-  ini: TIniFile;
-  nViews: integer;
-  sBookMarks: TStringList;
-begin
-
-  if FileExists(SelectedCatName) then
-  begin
-    ini := TIniFile.Create(SelectedCatName);
-    sBookMarks := TStringList.Create;
-    ini.ReadSections(sBookMarks);
-    nViews := ini.ReadInteger(sBookMarks[Index], 'VIEWS', 0);
-    Inc(nViews);
-    ini.WriteInteger(sBookMarks[Index], 'VIEWS', nViews);
-  end;
-
-  FreeAndNil(ini);
-  FreeAndNil(sBookMarks);
-end;
-
 procedure TfrmLinks.LoadLinks;
 var
   I: integer;
@@ -1039,7 +988,7 @@ begin
 
   ExportTemplate := AppPath + 'export.tpl';
 
-  BasePath := AppPath + 'profiles' + PathDelim + GetProfileName + PathDelim;
+  BasePath := AppPath + 'profiles' + PathDelim;
 
   if not DirectoryExists(BasePath) then
   begin
@@ -1420,7 +1369,7 @@ begin
     frm.ShowModal;
     if ButtonPress = 1 then
     begin
-      //OpenURL(Tools.LinkShareSrc); andrews
+      OpenURL(Tools.LinkShareSrc);
     end;
     FreeAndNil(frm);
   end;
@@ -1582,33 +1531,17 @@ var
   bDefault: integer;
 begin
   oIdx := LstLinks.ItemIndex;
-
   if oIdx <> -1 then
   begin
-
     ini := TIniFile.Create(AppPath + 'browsers.ini');
     //Get default borwser
     bDefault := ini.ReadInteger('Browsers', 'default', 0);
     FreeAndNil(ini);
 
     if bDefault = 0 then
-    begin
-{      if not OpenURL(GetLinkUrl(oIdx)) then
-      begin
-        MessageDlg(ErrorOpeningUrl, mtError,
-          [mbOK], 0);
-      end
-      else
-      begin
-        UpdateLinkViews(oIdx);
-        lblViews.Caption := IntToStr(GetLinkViews(oIdx));
-      end; andrews}
-    end
+      OpenURL(GetLinkUrl(oIdx))
     else
-    begin
       OpenInBrowser(bDefault);
-    end;
-
   end;
 end;
 

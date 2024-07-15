@@ -34,6 +34,9 @@ implementation
 
 {$R *.dfm}
 
+uses
+  Tools;
+
 { TfrmAbout }
 
 procedure TfrmAbout.cmdOKClick(Sender: TObject);
@@ -43,7 +46,7 @@ end;
 
 procedure TfrmAbout.lblWebsiteClick(Sender: TObject);
 begin
-//  OpenURL('https://github.com/DreamVB/MyLinksXE');
+  OpenURL('https://github.com/andrewsbejatto/BookmarksManager4Delphi');
 end;
 
 procedure TfrmAbout.lblWebsiteMouseEnter(Sender: TObject);

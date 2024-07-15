@@ -9,10 +9,10 @@ uses
   filebag in 'units\filebag.pas',
   htmlprop in 'units\htmlprop.pas' {frmHtml},
   linkmove in 'units\linkmove.pas' {frmMoveLink},
-  linkshare in 'units\linkshare.pas' {frmShareLink},
   listimages in 'units\listimages.pas' {frmTemp},
   main in 'units\main.pas' {frmLinks},
-  tools in 'units\tools.pas';
+  tools in 'units\tools.pas',
+  linkshare in 'units\linkshare.pas' {frmShareLink};
 
 {$R *.res}
 
@@ -26,7 +26,7 @@ begin
   Application.CreateForm(TfrmAddLink, frmAddLink);
   Application.CreateForm(TfrmHtml, frmHtml);
   Application.CreateForm(TfrmMoveLink, frmMoveLink);
-  Application.CreateForm(TfrmShareLink, frmShareLink);
   Application.CreateForm(TfrmTemp, frmTemp);
+  Application.CreateForm(TfrmShareLink, frmShareLink);
   Application.Run;
 end.

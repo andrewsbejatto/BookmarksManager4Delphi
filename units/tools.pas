@@ -3,13 +3,17 @@ unit Tools;
 interface
 
 uses
-  Classes, SysUtils, ComCtrls, Graphics, listimages, Forms;
+  Classes, SysUtils, ComCtrls, Graphics, listimages, Forms, ShellAPI, Winapi.Windows;
+
+type
+  TBrowserCfg = (IE, Edge, Firefox, Chrome, Opera);
 
 function VaildFileName(S: string): boolean;
 function AddCatName(TheName: string): integer;
 function EditCat(OldName, NewName: string): integer;
 function ColorToHtml(c: TColor): string;
 procedure InitListIcons;
+procedure OpenURL(const Url: String);
 
 var
   AppPath: string;
@@ -43,6 +47,11 @@ var
   HtmlPageLinkHoverColor: string;
 
 implementation
+
+procedure OpenURL(const Url: String);
+Begin
+   ShellExecute(Application.Handle, Nil, PChar(Url), Nil, Nil, SW_SHOWNORMAL);
+End;
 
 procedure InitListIcons;
 begin

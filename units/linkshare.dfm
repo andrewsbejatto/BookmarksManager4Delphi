@@ -48,6 +48,7 @@ object frmShareLink: TfrmShareLink
     Checked = True
     TabOrder = 0
     TabStop = True
+    OnClick = R1Click
   end
   object R2: TRadioButton
     Left = 72
@@ -56,6 +57,7 @@ object frmShareLink: TfrmShareLink
     Height = 29
     Caption = 'Twitter'
     TabOrder = 1
+    OnClick = R2Click
   end
   object R3: TRadioButton
     Left = 72
@@ -64,6 +66,7 @@ object frmShareLink: TfrmShareLink
     Height = 29
     Caption = 'LinkedIn'
     TabOrder = 2
+    OnClick = R3Click
   end
   object cmdOK: TButton
     Left = 72
@@ -90,5 +93,6 @@ object frmShareLink: TfrmShareLink
     Height = 29
     Caption = 'Email'
     TabOrder = 3
+    OnClick = R4Click
   end
 end

@@ -1950,7 +1950,7 @@ object frmLinks: TfrmLinks
       end
       object txtDesc: TMemo
         Left = 8
-        Top = 120
+        Top = 126
         Width = 432
         Height = 109
         Anchors = [akLeft, akRight, akBottom]

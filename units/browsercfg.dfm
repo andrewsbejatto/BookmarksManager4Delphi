@@ -12,7 +12,7 @@ object frmBrowsers: TfrmBrowsers
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poDesktopCenter
+  Position = poOwnerFormCenter
   OnCreate = FormCreate
   TextHeight = 15
   object lblTitle: TLabel
@@ -117,7 +117,7 @@ object frmBrowsers: TfrmBrowsers
     ParentColor = False
     ParentFont = False
   end
-  object txtFileEd1: TEdit
+  object txtFileEd1: TSearchBox
     Left = 32
     Top = 55
     Width = 592
@@ -125,8 +125,9 @@ object frmBrowsers: TfrmBrowsers
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnInvokeSearch = txtFileEd1InvokeSearch
   end
-  object txtFileEd2: TEdit
+  object txtFileEd2: TSearchBox
     Left = 34
     Top = 138
     Width = 592
@@ -134,8 +135,9 @@ object frmBrowsers: TfrmBrowsers
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
+    OnInvokeSearch = txtFileEd2InvokeSearch
   end
-  object txtFileEd3: TEdit
+  object txtFileEd3: TSearchBox
     Left = 34
     Top = 226
     Width = 592
@@ -143,8 +145,9 @@ object frmBrowsers: TfrmBrowsers
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
+    OnInvokeSearch = txtFileEd3InvokeSearch
   end
-  object txtFileEd4: TEdit
+  object txtFileEd4: TSearchBox
     Left = 34
     Top = 314
     Width = 592
@@ -152,8 +155,9 @@ object frmBrowsers: TfrmBrowsers
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
+    OnInvokeSearch = txtFileEd4InvokeSearch
   end
-  object txtFileEd5: TEdit
+  object txtFileEd5: TSearchBox
     Left = 34
     Top = 394
     Width = 592
@@ -161,6 +165,7 @@ object frmBrowsers: TfrmBrowsers
     ParentShowHint = False
     ShowHint = True
     TabOrder = 4
+    OnInvokeSearch = txtFileEd5InvokeSearch
   end
   object cmdOK: TButton
     Left = 32
@@ -196,5 +201,9 @@ object frmBrowsers: TfrmBrowsers
       'Mozilla Firefox'
       'Google Chrome'
       'Opera Web Browser')
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 480
+    Top = 8
   end
 end

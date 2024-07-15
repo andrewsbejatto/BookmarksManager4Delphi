@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  IniFiles, Tools;
+  IniFiles, Tools, Vcl.WinXCtrls;
 
 type
 
@@ -20,17 +20,23 @@ type
     lblTitle2: TLabel;
     lblTitle3: TLabel;
     lblTitle4: TLabel;
-    txtFileEd1: TEdit;
+    txtFileEd1: TSearchBox;
     lblTitle: TLabel;
-    txtFileEd2: TEdit;
-    txtFileEd3: TEdit;
-    txtFileEd4: TEdit;
-    txtFileEd5: TEdit;
+    txtFileEd2: TSearchBox;
+    txtFileEd3: TSearchBox;
+    txtFileEd4: TSearchBox;
+    txtFileEd5: TSearchBox;
+    OpenDialog1: TOpenDialog;
     procedure cmdCloseClick(Sender: TObject);
     procedure cmdOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BrowsersInfo;
     procedure SaveBrowserInfo;
+    procedure txtFileEd1InvokeSearch(Sender: TObject);
+    procedure txtFileEd2InvokeSearch(Sender: TObject);
+    procedure txtFileEd3InvokeSearch(Sender: TObject);
+    procedure txtFileEd4InvokeSearch(Sender: TObject);
+    procedure txtFileEd5InvokeSearch(Sender: TObject);
   private
 
   public
@@ -58,11 +64,11 @@ begin
   txtFileEd4.Text := ini.ReadString('browser4', 'Path', '');
   txtFileEd5.Text := ini.ReadString('browser5', 'Path', '');
 
-  txtFileEd1.Text := ExtractFilePath(txtFileEd1.Text);
-  txtFileEd2.Text := ExtractFilePath(txtFileEd2.Text);
-  txtFileEd3.Text := ExtractFilePath(txtFileEd3.Text);
-  txtFileEd4.Text := ExtractFilePath(txtFileEd4.Text);
-  txtFileEd5.Text := ExtractFilePath(txtFileEd5.Text);
+  txtFileEd1.Text := txtFileEd1.Text;
+  txtFileEd2.Text := txtFileEd2.Text;
+  txtFileEd3.Text := txtFileEd3.Text;
+  txtFileEd4.Text := txtFileEd4.Text;
+  txtFileEd5.Text := txtFileEd5.Text;
   cboDefault.ItemIndex := ini.ReadInteger('Browsers', 'default', 0);
 
   FreeAndNil(ini);
@@ -82,6 +88,36 @@ begin
   ini.WriteInteger('Browsers', 'default', cboDefault.ItemIndex);
   FreeAndNil(ini);
 
+end;
+
+procedure TfrmBrowsers.txtFileEd1InvokeSearch(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+    txtFileEd1.Text := OpenDialog1.FileName;
+end;
+
+procedure TfrmBrowsers.txtFileEd2InvokeSearch(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+    txtFileEd2.Text := OpenDialog1.FileName;
+end;
+
+procedure TfrmBrowsers.txtFileEd3InvokeSearch(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+    txtFileEd3.Text := OpenDialog1.FileName;
+end;
+
+procedure TfrmBrowsers.txtFileEd4InvokeSearch(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+    txtFileEd4.Text := OpenDialog1.FileName;
+end;
+
+procedure TfrmBrowsers.txtFileEd5InvokeSearch(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+    txtFileEd5.Text := OpenDialog1.FileName;
 end;
 
 procedure TfrmBrowsers.FormCreate(Sender: TObject);

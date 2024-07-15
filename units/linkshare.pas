@@ -23,10 +23,10 @@ type
     procedure cmdCloseClick(Sender: TObject);
     procedure cmdOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure R1Change(Sender: TObject);
-    procedure R2Change(Sender: TObject);
-    procedure R3Change(Sender: TObject);
-    procedure R4Change(Sender: TObject);
+    procedure R1Click(Sender: TObject);
+    procedure R2Click(Sender: TObject);
+    procedure R3Click(Sender: TObject);
+    procedure R4Click(Sender: TObject);
   private
 
   public
@@ -81,22 +81,22 @@ begin
   ShareID := 0;
 end;
 
-procedure TfrmShareLink.R1Change(Sender: TObject);
+procedure TfrmShareLink.R1Click(Sender: TObject);
 begin
   ShareID := 0;
 end;
 
-procedure TfrmShareLink.R2Change(Sender: TObject);
+procedure TfrmShareLink.R2Click(Sender: TObject);
 begin
   ShareID := 1;
 end;
 
-procedure TfrmShareLink.R3Change(Sender: TObject);
+procedure TfrmShareLink.R3Click(Sender: TObject);
 begin
   ShareID := 2;
 end;
 
-procedure TfrmShareLink.R4Change(Sender: TObject);
+procedure TfrmShareLink.R4Click(Sender: TObject);
 begin
   ShareID := 3;
 end;
