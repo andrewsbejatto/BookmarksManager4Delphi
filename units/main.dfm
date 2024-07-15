@@ -25,6 +25,7 @@ object frmLinks: TfrmLinks
     Width = 755
     Height = 36
     Panels = <>
+    SimplePanel = True
   end
   object Panel1: TPanel
     Left = 0
